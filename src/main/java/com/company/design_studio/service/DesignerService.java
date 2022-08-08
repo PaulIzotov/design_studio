@@ -7,5 +7,5 @@ import java.util.List;
 public interface DesignerService extends AbstractService<Long, DesignerDto> {
     DesignerDto login(String email, String password);
 
-    }
 }
+
