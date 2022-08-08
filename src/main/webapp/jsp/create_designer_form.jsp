@@ -26,11 +26,11 @@
         <input id="password-input" name="password" type="password" min="4"/>
         <br/>
         <label for="specialization-input-interior">Interior</label>
-        <input id="specialization-input-interior" name="specialization" type="radio" value="interior"/>
+        <input id="specialization-input-interior" name="specialization" type="radio" value="INTERIOR"/>
         <label for="specialization-input-exterior">Exterior</label>
-        <input id="specialization-input-exterior" name="specialization" type="radio" value="exterior"/>
+        <input id="specialization-input-exterior" name="specialization" type="radio" value="EXTERIOR"/>
         <label for="specialization-input-architecture">Architecture</label>
-        <input id="specialization-input-architecture" name="specialization" type="radio" value="architecture"/>
+        <input id="specialization-input-architecture" name="specialization" type="radio" value="ARCHITECTURE"/>
         <br/>
         <input type="submit" value="REGISTER"/>
     </form>
