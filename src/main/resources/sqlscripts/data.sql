@@ -6,7 +6,8 @@ truncate table project_infos cascade;
 */
 
 INSERT INTO roles (name)
-VALUES ('ADMIN'),
+VALUES ('GUEST'),
+       ('ADMIN'),
        ('DESIGNER');
 
 INSERT INTO specializations (name)
