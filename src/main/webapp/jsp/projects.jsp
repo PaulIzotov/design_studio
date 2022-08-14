@@ -10,17 +10,17 @@
     <table>
         <tr>
             <th>#</th>
+            <th>Square</th>
+            <th>Price for m2</th>
             <th>Administrator</th>
             <th>Designer</th>
-            <th>Price for m2</th>
-            <th>Square</th>
         </tr>
         <c:forEach items="${projects}" var="project" varStatus="counter">
             <tr>
                 <td>${counter.count}</td>
                 <td><a href="controller?command=project&id=${project.id}">${project.square}</a></td>
-                <td>${project.price_for_m2}</td>
-                <td>${project.administrator}</td>
+                <td>${project.priceM2}</td>
+                <td>${project.admin}</td>
                 <td>${project.designer}</td>
             </tr>
         </c:forEach>

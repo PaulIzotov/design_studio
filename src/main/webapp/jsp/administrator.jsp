@@ -9,7 +9,6 @@
 <body>
 <h1>Info about administrator</h1>
 <table>
-    <tr><th>Field</th><th>Value</th></tr>
     <tr><th>Id</th><th>${administrator.id}</th></tr>
     <tr><th>FirstName</th><th>${administrator.firstName}</th></tr>
     <tr><th>LastName</th><th>${administrator.lastName}</th></tr>

@@ -9,11 +9,10 @@
 <body>
 <h1>Info about project</h1>
 <table>
-    <tr><th>Field</th><th>Value</th></tr>
     <tr><th>Id</th><th>${project.id}</th></tr>
-    <tr><th>Administrator</th><th>${project.administrator}</th></tr>
+    <tr><th>Administrator</th><th>${project.admin}</th></tr>
     <tr><th>Designer</th><th>${project.designer}</th></tr>
-    <tr><th>Price for m2</th><th>${project.price_for_m2}</th></tr>
+    <tr><th>Price for m2</th><th>${project.priceM2}</th></tr>
     <tr><th>Square</th><th>${project.square}</th></tr>
 </table>
 </body>

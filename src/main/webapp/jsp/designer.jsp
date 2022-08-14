@@ -10,7 +10,6 @@
 <h1>Info about designer</h1>
 <p>${requestScope.message}</p>
 <table>
-    <tr><th>Field</th><th>Value</th></tr>
     <tr><th>Id</th><th>${designer.id}</th></tr>
     <tr><th>FirstName</th><th>${designer.firstName}</th></tr>
     <tr><th>LastName</th><th>${designer.lastName}</th></tr>
