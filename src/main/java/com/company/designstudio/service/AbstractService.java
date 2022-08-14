@@ -1,4 +1,4 @@
-package com.company.design_studio.service;
+package com.company.designstudio.service;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.company.design_studio.dao;
+package com.company.designstudio.dao;
 
 import java.util.List;
 
