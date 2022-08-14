@@ -1,4 +1,4 @@
-package com.company.design_studio;
+package com.company.designstudio;
 
 import java.io.IOException;
 import java.io.InputStream;
