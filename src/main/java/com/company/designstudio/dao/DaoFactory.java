@@ -1,10 +1,10 @@
-package com.company.design_studio.dao;
+package com.company.designstudio.dao;
 
-import com.company.design_studio.connection.DataSource;
-import com.company.design_studio.dao.impl.AdministratorDaoImpl;
-import com.company.design_studio.dao.impl.DesignerDaoImpl;
-import com.company.design_studio.dao.impl.ProjectDaoImpl;
-import com.company.design_studio.dao.impl.ProjectInfoDaoImpl;
+import com.company.designstudio.connection.DataSource;
+import com.company.designstudio.dao.impl.AdministratorDaoImpl;
+import com.company.designstudio.dao.impl.DesignerDaoImpl;
+import com.company.designstudio.dao.impl.ProjectDaoImpl;
+import com.company.designstudio.dao.impl.ProjectInfoDaoImpl;
 
 import java.util.HashMap;
 import java.util.Map;
