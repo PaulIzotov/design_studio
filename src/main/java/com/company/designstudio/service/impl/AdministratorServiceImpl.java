@@ -1,10 +1,10 @@
-package com.company.design_studio.service.impl;
+package com.company.designstudio.service.impl;
 
-import com.company.design_studio.dao.AdministratorDao;
-import com.company.design_studio.dto.AdministratorDto;
-import com.company.design_studio.entity.Role;
-import com.company.design_studio.entity.Administrator;
-import com.company.design_studio.service.AdministratorService;
+import com.company.designstudio.dao.AdministratorDao;
+import com.company.designstudio.dto.AdministratorDto;
+import com.company.designstudio.entity.Role;
+import com.company.designstudio.entity.Administrator;
+import com.company.designstudio.service.AdministratorService;
 
 import java.util.ArrayList;
 import java.util.List;

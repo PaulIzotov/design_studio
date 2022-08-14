@@ -1,11 +1,11 @@
-package com.company.design_studio.service.impl;
+package com.company.designstudio.service.impl;
 
-import com.company.design_studio.dao.DesignerDao;
-import com.company.design_studio.dto.DesignerDto;
-import com.company.design_studio.entity.Designer;
-import com.company.design_studio.entity.Specialization;
-import com.company.design_studio.entity.Role;
-import com.company.design_studio.service.DesignerService;
+import com.company.designstudio.dao.DesignerDao;
+import com.company.designstudio.dto.DesignerDto;
+import com.company.designstudio.entity.Designer;
+import com.company.designstudio.entity.Specialization;
+import com.company.designstudio.entity.Role;
+import com.company.designstudio.service.DesignerService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,8 +38,17 @@ public class DesignerServiceImpl implements DesignerService {
     }
 
     @Override
+    public DesignerDto findByEmail(String email) {
+        Designer entity = designerDao.findByEmail(email);
+        if (entity == null) {
+            throw new RuntimeException("Can't create designer with such email: " + email);
+        }
+        return toEntityDto(entity);
+    }
+
+    @Override
     public DesignerDto save(DesignerDto entityDto) {
-        Designer existing = designerDao.findById(entityDto.getId());
+        Designer existing = designerDao.findByEmail(entityDto.getEmail());
         if (existing != null) {
             throw new RuntimeException("Designer already exists");
         }
@@ -94,6 +103,13 @@ public class DesignerServiceImpl implements DesignerService {
 
     @Override
     public DesignerDto login(String email, String password) {
-        return null;
+        Designer entity = designerDao.findByEmail(email);
+        if (entity == null) {
+            throw new RuntimeException("Can't create designer with such email: " + email);
+        }
+        if (!entity.getPassword().equals(password)){
+            throw new RuntimeException("Wrong password with email: " + email);
+        }
+        return toEntityDto(entity);
     }
 }

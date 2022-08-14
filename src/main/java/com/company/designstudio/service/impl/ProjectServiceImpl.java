@@ -1,9 +1,9 @@
-package com.company.design_studio.service.impl;
+package com.company.designstudio.service.impl;
 
-import com.company.design_studio.dao.ProjectDao;
-import com.company.design_studio.dto.ProjectDto;
-import com.company.design_studio.entity.Project;
-import com.company.design_studio.service.ProjectService;
+import com.company.designstudio.dao.ProjectDao;
+import com.company.designstudio.dto.ProjectDto;
+import com.company.designstudio.entity.Project;
+import com.company.designstudio.service.ProjectService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,9 +63,9 @@ public class ProjectServiceImpl implements ProjectService {
     private ProjectDto toEntityDto(Project entity) {
         ProjectDto entityDto = new ProjectDto();
         entityDto.setId(entity.getId());
-        entityDto.setAdministrator(entity.getAdministrator());
+        entityDto.setAdmin(entity.getAdmin());
         entityDto.setDesigner(entity.getDesigner());
-        entityDto.setPrice_for_m2(entity.getPrice_for_m2());
+        entityDto.setPriceM2(entity.getPriceM2());
         entityDto.setSquare(entity.getSquare());
         return entityDto;
     }
@@ -73,9 +73,9 @@ public class ProjectServiceImpl implements ProjectService {
     private Project toEntity(ProjectDto entityDto) {
         Project entity = new Project();
         entity.setId(entityDto.getId());
-        entity.setAdministrator(entityDto.getAdministrator());
+        entity.setAdmin(entityDto.getAdmin());
         entity.setDesigner(entityDto.getDesigner());
-        entity.setPrice_for_m2(entityDto.getPrice_for_m2());
+        entity.setPriceM2(entityDto.getPriceM2());
         entity.setSquare(entityDto.getSquare());
         return entity;
     }

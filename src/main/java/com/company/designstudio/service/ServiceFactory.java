@@ -1,12 +1,12 @@
-package com.company.design_studio.service;
+package com.company.designstudio.service;
 
-import com.company.design_studio.dao.AdministratorDao;
-import com.company.design_studio.dao.DesignerDao;
-import com.company.design_studio.dao.ProjectDao;
-import com.company.design_studio.service.impl.AdministratorServiceImpl;
-import com.company.design_studio.service.impl.DesignerServiceImpl;
-import com.company.design_studio.service.impl.ProjectServiceImpl;
-import com.company.design_studio.dao.DaoFactory;
+import com.company.designstudio.dao.AdministratorDao;
+import com.company.designstudio.dao.DesignerDao;
+import com.company.designstudio.dao.ProjectDao;
+import com.company.designstudio.service.impl.AdministratorServiceImpl;
+import com.company.designstudio.service.impl.DesignerServiceImpl;
+import com.company.designstudio.service.impl.ProjectServiceImpl;
+import com.company.designstudio.dao.DaoFactory;
 
 import java.util.HashMap;
 import java.util.Map;
