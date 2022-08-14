@@ -1,57 +1,54 @@
-package com.company.design_studio.dao.impl;
+package com.company.designstudio.dao.impl;
 
+
+import lombok.extern.log4j.Log4j2;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
-import com.company.design_studio.entity.Role;
-import com.company.design_studio.entity.Designer;
-import com.company.design_studio.entity.Specialization;
-import lombok.extern.log4j.Log4j2;
-
-import com.company.design_studio.dao.DesignerDao;
-import com.company.design_studio.connection.DataSource;
+import com.company.designstudio.dao.AdministratorDao;
+import com.company.designstudio.connection.DataSource;
+import com.company.designstudio.entity.Administrator;
+import com.company.designstudio.entity.Role;
 
 @Log4j2
-public class DesignerDaoImpl implements DesignerDao {
-    private static final String FIND_ALL = "SELECT d.id, d.firstName, d.lastName, d.experience, d.email, d.password, "
-            + "sp.name AS specialization, r.name AS role "
-            + "FROM designers d "
-            + "JOIN specializations sp ON d.specialization_id = sp.id "
-            + "JOIN roles r ON d.role_id = r.id "
-            + "WHERE d.deleted = false";
+public class AdministratorDaoImpl implements AdministratorDao {
+    private static final String FIND_ALL = "SELECT ad.id, ad.firstName, ad.lastName, ad.email, ad.password, "
+            + "r.name AS role "
+            + "FROM administrators ad "
+            + "JOIN roles r ON ad.role_id = r.id WHERE ad.deleted = false";
 
-    private static final String FIND_BY_ID = "SELECT d.id, d.firstName, d.lastName, d.experience, d.email, d.password, "
-            + "sp.name AS specialization , r.name AS role "
-            + "FROM designers d "
-            + "JOIN specializations sp ON d.specialization_id = sp.id "
-            + "JOIN roles r ON d.role_id = r.id "
-            + "WHERE d.id = ? AND d.deleted = false";
+    private static final String FIND_BY_ID = "SELECT ad.id, ad.firstName, ad.lastName, ad.email, ad.password, "
+            + "r.name AS role "
+            + "FROM administrators ad "
+            + "JOIN roles r ON ad.role_id = r.id "
+            + "WHERE ad.id = ? AND ad.deleted = false";
 
-    private static final String INSERT = "INSERT INTO designers d (firstName, lastName, experience, email, password) "
-            + "VALUES (?, ?, ?, ?, ?)";
+    private static final String INSERT = "INSERT INTO administrators (firstName, lastName, email, password) "
+            + "VALUES (?, ?, ?, ?)";
 
-    private static final String UPDATE = "UPDATE designers d SET firstName = ?, lastName = ?, "
-            + "experience = ?, email = ?, password = ? "
-            + "WHERE id = ? AND d.deleted = false";
+    private static final String UPDATE = "UPDATE administrators SET firstName = ?, lastName = ?, "
+            + "email = ?, password = ? "
+            + "WHERE id = ? AND ad.deleted = false";
 
-    private static final String DELETE = "UPDATE designers d SET deleted = true WHERE id = ?";
+    private static final String DELETE = "UPDATE administrators SET deleted = true WHERE id = ?";
 
 
     private final DataSource dataSource;
 
-    public DesignerDaoImpl(DataSource dataSource) {
+    public AdministratorDaoImpl(DataSource dataSource) {
         log.debug("Create dataSource");
         this.dataSource = dataSource;
     }
 
     @Override
-    public List<Designer> findAll() {
-        List<Designer> list = new ArrayList<>();
+    public List<Administrator> findAll() {
+        List<Administrator> list = new ArrayList<>();
         try (Connection connection = dataSource.getConnection()) {
             log.debug("Query 'find all'");
             Statement statement = connection.createStatement();
@@ -66,7 +63,7 @@ public class DesignerDaoImpl implements DesignerDao {
     }
 
     @Override
-    public Designer findById(Long id) {
+    public Administrator findById(Long id) {
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(FIND_BY_ID);
             statement.setLong(1, id);
@@ -83,14 +80,13 @@ public class DesignerDaoImpl implements DesignerDao {
     }
 
     @Override
-    public Designer save(Designer entity) {
+    public Administrator save(Administrator entity) {
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, entity.getFirstName());
             statement.setString(2, entity.getLastName());
-            statement.setLong(3, entity.getExperience());
-            statement.setString(4, entity.getEmail());
-            statement.setString(5, entity.getPassword());
+            statement.setString(3, entity.getEmail());
+            statement.setString(4, entity.getPassword());
 
             statement.executeUpdate();
 
@@ -107,15 +103,14 @@ public class DesignerDaoImpl implements DesignerDao {
     }
 
     @Override
-    public Designer update(Designer entity) {
+    public Administrator update(Administrator entity) {
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(UPDATE);
             statement.setString(1, entity.getFirstName());
             statement.setString(2, entity.getLastName());
-            statement.setLong(3, entity.getExperience());
-            statement.setString(4, entity.getEmail());
-            statement.setString(5, entity.getPassword());
-            statement.setLong(6, entity.getId());
+            statement.setString(3, entity.getEmail());
+            statement.setString(4, entity.getPassword());
+            statement.setLong(5, entity.getId());
 
             if (statement.executeUpdate() == 1) {
                 return findById(entity.getId());
@@ -141,16 +136,13 @@ public class DesignerDaoImpl implements DesignerDao {
         }
         return false;
     }
-
-    private Designer process(ResultSet resultSet) throws SQLException {
-        Designer entity = new Designer();
+    private Administrator process(ResultSet resultSet) throws SQLException {
+        Administrator entity = new Administrator();
         entity.setId(resultSet.getLong("id"));
         entity.setFirstName(resultSet.getString("firstName"));
         entity.setLastName(resultSet.getString("lastName"));
-        entity.setExperience(resultSet.getLong("experience"));
         entity.setEmail(resultSet.getString("email"));
         entity.setPassword(resultSet.getString("password"));
-        entity.setSpecialization(Specialization.valueOf(resultSet.getString("specialization")));
         entity.setRole(Role.valueOf(resultSet.getString("role")));
         return entity;
     }

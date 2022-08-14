@@ -1,14 +1,14 @@
-package com.company.design_studio.dao.impl;
+package com.company.designstudio.dao.impl;
 
-import com.company.design_studio.connection.DataSource;
-import com.company.design_studio.dao.AdministratorDao;
-import com.company.design_studio.dao.DesignerDao;
-import com.company.design_studio.dao.ProjectInfoDao;
-import com.company.design_studio.dao.ProjectDao;
-import com.company.design_studio.entity.Administrator;
-import com.company.design_studio.entity.Designer;
-import com.company.design_studio.entity.Project;
-import com.company.design_studio.entity.ProjectInfo;
+import com.company.designstudio.connection.DataSource;
+import com.company.designstudio.dao.AdministratorDao;
+import com.company.designstudio.dao.DesignerDao;
+import com.company.designstudio.dao.ProjectInfoDao;
+import com.company.designstudio.dao.ProjectDao;
+import com.company.designstudio.entity.Administrator;
+import com.company.designstudio.entity.Designer;
+import com.company.designstudio.entity.Project;
+import com.company.designstudio.entity.ProjectInfo;
 import lombok.extern.log4j.Log4j2;
 
 import java.sql.*;
@@ -17,24 +17,24 @@ import java.util.List;
 
 @Log4j2
 public class ProjectDaoImpl implements ProjectDao {
-    private static final String FIND_ALL = "SELECT p.admin_id AS administrator, p.designer_id AS designer, "
-            + "p.price_for_m2, p.square "
-            + "FROM projects p "
+    private static final String FIND_ALL = "SELECT p.id, p.admin_id AS admin, p.designer_id AS designer, "
+            + "p.priceM2, p.square "
+            + "FROM projects p JOIN administrators ad ON p.admin_id = ad.id JOIN designers d ON p.designer_id = d.id "
             + "WHERE p.deleted = false";
 
-    private static final String FIND_BY_ID = "SELECT p.admin_id AS administrator, p.designer_id AS designer, "
-            + "p.price_for_m2, p.square "
+    private static final String FIND_BY_ID = "SELECT p.id, p.admin_id AS admin, p.designer_id AS designer, "
+            + "p.priceM2, p.square "
             + "FROM projects p "
             + "WHERE p.id = ? AND p.deleted = false";
 
-    private static final String INSERT = "INSERT INTO projects p (admin_id, designer_id, price_for_m2, square) "
+    private static final String INSERT = "INSERT INTO projects (admin_id, designer_id, priceM2, square) "
             + "VALUES (?, ?, ?, ?)";
 
-    private static final String UPDATE = "UPDATE projects p SET admin_id = ?, designer_id = ?, "
-            + "price_for_m2 = ?, square = ? "
+    private static final String UPDATE = "UPDATE projects SET admin_id = ?, designer_id = ?, "
+            + "priceM2 = ?, square = ? "
             + "WHERE id = ? AND p.deleted = false";
 
-    private static final String DELETE = "UPDATE projects p SET deleted = true WHERE id = ?";
+    private static final String DELETE = "UPDATE projects SET deleted = true WHERE id = ?";
 
     private final DataSource dataSource;
     private final DesignerDao designerDao;
@@ -89,9 +89,9 @@ public class ProjectDaoImpl implements ProjectDao {
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
             statement.setObject(1, entity.getDesigner());
-            statement.setObject(2, entity.getAdministrator());
-            statement.setDouble(3, entity.getPrice_for_m2());
-            statement.setDouble(4, entity.getSquare());
+            statement.setObject(2, entity.getAdmin());
+            statement.setBigDecimal(3, entity.getPriceM2());
+            statement.setBigDecimal(4, entity.getSquare());
 
             statement.executeUpdate();
 
@@ -112,9 +112,9 @@ public class ProjectDaoImpl implements ProjectDao {
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(UPDATE);
             statement.setObject(1, entity.getDesigner());
-            statement.setObject(2, entity.getAdministrator());
-            statement.setDouble(3, entity.getPrice_for_m2());
-            statement.setDouble(4, entity.getSquare());
+            statement.setObject(2, entity.getAdmin());
+            statement.setBigDecimal(3, entity.getPriceM2());
+            statement.setBigDecimal(4, entity.getSquare());
             statement.setLong(5, entity.getId());
 
             if (statement.executeUpdate() == 1) {
@@ -148,15 +148,18 @@ public class ProjectDaoImpl implements ProjectDao {
 
         Long adminId = resultSet.getLong("admin");
         Administrator administrator = administratorDao.findById(adminId);
-        entity.setAdministrator(administrator);
+        entity.setAdmin(administrator);
 
         Long designerId = resultSet.getLong("designer");
         Designer designer = designerDao.findById(designerId);
         entity.setDesigner(designer);
 
-        entity.setPrice_for_m2(resultSet.getDouble("price_for_m2"));
+        entity.setPriceM2(resultSet.getBigDecimal("priceM2"));
 
-        entity.setSquare(resultSet.getDouble("square"));
+        entity.setSquare(resultSet.getBigDecimal("square"));
+
+        List<ProjectInfo> details = projectInfoDao.findByProjectId(entity.getId());
+        entity.setDetails(details);
 
         return entity;
     }

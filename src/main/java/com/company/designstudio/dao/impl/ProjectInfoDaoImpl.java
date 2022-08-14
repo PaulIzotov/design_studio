@@ -1,9 +1,10 @@
-package com.company.design_studio.dao.impl;
+package com.company.designstudio.dao.impl;
 
-import com.company.design_studio.connection.DataSource;
-import com.company.design_studio.dao.DesignerDao;
-import com.company.design_studio.dao.ProjectInfoDao;
-import com.company.design_studio.entity.*;
+import com.company.designstudio.connection.DataSource;
+import com.company.designstudio.dao.DesignerDao;
+import com.company.designstudio.dao.ProjectDao;
+import com.company.designstudio.dao.ProjectInfoDao;
+import com.company.designstudio.entity.*;
 import lombok.extern.log4j.Log4j2;
 
 import java.sql.*;
@@ -12,24 +13,31 @@ import java.util.List;
 
 @Log4j2
 public class ProjectInfoDaoImpl implements ProjectInfoDao {
-    private static final String FIND_ALL = "SELECT i.id, i.designer_id AS designer, i.total_price, "
-            + "s.name AS status "
+    private static final String FIND_ALL = "SELECT i.id, i.designer_id AS designer, i_project_id AS project, "
+            + "i.totalPrice, s.name AS status "
             + "FROM project_infos i "
-            + "JOIN status s ON i.status_id = s.id WHERE i.deleted = false";
+            + "JOIN status s ON i.status_id = s.id JOIN projects p ON i.project_id = p.id "
+            + "WHERE i.deleted = false";
 
-    private static final String FIND_BY_ID = "SELECT i.id, i.designer_id AS designer, i.total_price, "
-            + "s.name AS status "
+    private static final String FIND_BY_ID = "SELECT i.id, i.designer_id AS designer, i_project_id AS project, "
+            + "i.totalPrice, s.name AS status "
             + "FROM project_infos i "
-            + "JOIN status s ON i.status_id = s.id "
+            + "JOIN status s ON i.status_id = s.id JOIN projects p ON i.project_id = p.id "
             + "WHERE i.id = ? AND i.deleted = false";
 
-    private static final String INSERT = "INSERT INTO project_infos i (designer_id, total_price) "
-            + "VALUES (?, ?)";
+    private static final String FIND_BY_PROJECT_ID = "SELECT i.id, i.designer_id AS designer, i.project_id AS project, "
+            + "i.totalPrice, s.name AS status "
+            + "FROM project_infos i "
+            + "JOIN status s ON i.status_id = s.id JOIN projects p ON i.project_id = p.id "
+            + "WHERE i.project_id = ? AND i.deleted = false";
 
-    private static final String UPDATE = "UPDATE project_infos i SET designer_id = ?, total_price = ?, "
+    private static final String INSERT = "INSERT INTO project_infos (designer_id, project_id, totalPrice) "
+            + "VALUES (?, ?, ?)";
+
+    private static final String UPDATE = "UPDATE project_infos SET designer_id = ?, project_id = ?, totalPrice = ?, "
             + "WHERE id = ? AND i.deleted = false";
 
-    private static final String DELETE = "UPDATE project_infos i SET deleted = true WHERE id = ?";
+    private static final String DELETE = "UPDATE project_infos SET deleted = true WHERE id = ?";
 
 
     private final DataSource dataSource;
@@ -81,7 +89,8 @@ public class ProjectInfoDaoImpl implements ProjectInfoDao {
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
             statement.setObject(1, entity.getDesigner());
-            statement.setDouble(2, entity.getTotal_price());
+            statement.setObject(2, entity.getProjectId());
+            statement.setBigDecimal(3, entity.getTotalPrice());
             statement.executeUpdate();
 
             ResultSet keys = statement.getGeneratedKeys();
@@ -101,8 +110,9 @@ public class ProjectInfoDaoImpl implements ProjectInfoDao {
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(UPDATE);
             statement.setObject(1, entity.getDesigner());
-            statement.setDouble(2, entity.getTotal_price());
-            statement.setLong(3, entity.getId());
+            statement.setObject(2, entity.getProjectId());
+            statement.setBigDecimal(3, entity.getTotalPrice());
+            statement.setLong(4, entity.getId());
 
             if (statement.executeUpdate() == 1) {
                 return findById(entity.getId());
@@ -135,8 +145,26 @@ public class ProjectInfoDaoImpl implements ProjectInfoDao {
         Long designerId = resultSet.getLong("designer");
         Designer designer = designerDao.findById(designerId);
         entity.setDesigner(designer);
-        entity.setTotal_price(resultSet.getDouble("total_price"));
+        entity.setProjectId(resultSet.getLong("project"));
+        entity.setTotalPrice(resultSet.getBigDecimal("totalPrice"));
         entity.setStatus(Status.valueOf(resultSet.getString("status")));
         return entity;
+    }
+
+    @Override
+    public List<ProjectInfo> findByProjectId(Long id) {
+        List<ProjectInfo> list = new ArrayList<>();
+        try (Connection connection = dataSource.getConnection()) {
+            log.debug("Query 'find by project id'");
+            PreparedStatement statement = connection.prepareStatement(FIND_BY_PROJECT_ID);
+            statement.setLong(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                list.add(process(resultSet));
+            }
+        } catch (SQLException e) {
+            log.error("Error executing command 'find by project id', ", e);
+        }
+        return list;
     }
 }
