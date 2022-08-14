@@ -1,12 +1,11 @@
-package com.company.design_studio.command;
+package com.company.designstudio.command;
 
-import com.company.design_studio.connection.DataSource;
+import com.company.designstudio.connection.DataSource;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.xml.bind.ValidationException;
 
 import java.io.IOException;
 

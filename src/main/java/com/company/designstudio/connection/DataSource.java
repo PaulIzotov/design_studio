@@ -1,11 +1,11 @@
-package com.company.design_studio.connection;
+package com.company.designstudio.connection;
 
 import lombok.extern.log4j.Log4j2;
 
 import java.io.Closeable;
 import java.sql.Connection;
 
-import com.company.design_studio.ConfigurationManager;
+import com.company.designstudio.ConfigurationManager;
 
 @Log4j2
 public class DataSource implements Closeable {

@@ -1,4 +1,4 @@
-package com.company.design_studio.connection;
+package com.company.designstudio.connection;
 
 import java.sql.*;
 import java.util.Map;
