@@ -1,6 +1,6 @@
-package com.company.design_studio.dto;
+package com.company.designstudio.dto;
 
-import com.company.design_studio.entity.Role;
+import com.company.designstudio.entity.Role;
 import lombok.Data;
 
 @Data
