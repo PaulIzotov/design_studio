@@ -1,8 +1,8 @@
-package com.company.design_studio.command.impl;
+package com.company.designstudio.command.impl;
 
-import com.company.design_studio.command.Command;
-import com.company.design_studio.dto.DesignerDto;
-import com.company.design_studio.service.DesignerService;
+import com.company.designstudio.command.Command;
+import com.company.designstudio.dto.DesignerDto;
+import com.company.designstudio.service.DesignerService;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.List;

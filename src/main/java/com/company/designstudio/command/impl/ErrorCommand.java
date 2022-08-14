@@ -1,6 +1,6 @@
-package com.company.design_studio.command.impl;
+package com.company.designstudio.command.impl;
 
-import com.company.design_studio.command.Command;
+import com.company.designstudio.command.Command;
 import jakarta.servlet.http.HttpServletRequest;
 
 public class ErrorCommand implements Command {

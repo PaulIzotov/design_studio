@@ -1,10 +1,10 @@
-package com.company.design_studio.command;
+package com.company.designstudio.command;
 
-import com.company.design_studio.command.impl.*;
-import com.company.design_studio.service.AdministratorService;
-import com.company.design_studio.service.DesignerService;
-import com.company.design_studio.service.ProjectService;
-import com.company.design_studio.service.ServiceFactory;
+import com.company.designstudio.command.impl.*;
+import com.company.designstudio.service.AdministratorService;
+import com.company.designstudio.service.DesignerService;
+import com.company.designstudio.service.ProjectService;
+import com.company.designstudio.service.ServiceFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,6 +28,8 @@ public class CommandFactory {
         commands.put("create_designer_form", new CreateDesignerFormCommand());
         commands.put("create_designer", new CreateDesignerCommand(ServiceFactory.INSTANCE.getService(DesignerService.class)));
         commands.put("error", new ErrorCommand());
+        commands.put("login_form", new LoginFormCommand());
+        commands.put("login", new LoginCommand(ServiceFactory.INSTANCE.getService(DesignerService.class)));
     }
 
     public Command getCommand(String command) {

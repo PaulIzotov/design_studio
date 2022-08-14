@@ -1,8 +1,8 @@
-package com.company.design_studio.command.impl;
+package com.company.designstudio.command.impl;
 
-import com.company.design_studio.command.Command;
-import com.company.design_studio.dto.AdministratorDto;
-import com.company.design_studio.service.AdministratorService;
+import com.company.designstudio.command.Command;
+import com.company.designstudio.dto.AdministratorDto;
+import com.company.designstudio.service.AdministratorService;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.List;

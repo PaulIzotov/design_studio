@@ -1,10 +1,10 @@
-package com.company.design_studio.command.impl;
+package com.company.designstudio.command.impl;
 
-import com.company.design_studio.command.Command;
-import com.company.design_studio.dto.DesignerDto;
-import com.company.design_studio.entity.Role;
-import com.company.design_studio.entity.Specialization;
-import com.company.design_studio.service.DesignerService;
+import com.company.designstudio.command.Command;
+import com.company.designstudio.dto.DesignerDto;
+import com.company.designstudio.entity.Role;
+import com.company.designstudio.entity.Specialization;
+import com.company.designstudio.service.DesignerService;
 import jakarta.servlet.http.HttpServletRequest;
 
 public class CreateDesignerCommand implements Command {
@@ -21,14 +21,13 @@ public class CreateDesignerCommand implements Command {
         Long experience = Long.valueOf(req.getParameter("experience"));
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        Specialization specialization = Specialization.valueOf(req.getParameter("specialization"));
         DesignerDto designer = new DesignerDto();
         designer.setFirstName(firstName);
         designer.setLastName(lastName);
         designer.setExperience(experience);
         designer.setEmail(email);
         designer.setPassword(password);
-        designer.setSpecialization(specialization);
+        designer.setSpecialization(Specialization.INTERIOR);
         designer.setRole(Role.DESIGNER);
         DesignerDto created = service.save(designer);
         req.setAttribute("designer", created);
