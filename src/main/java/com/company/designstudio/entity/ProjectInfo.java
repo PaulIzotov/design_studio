@@ -1,11 +1,14 @@
-package com.company.design_studio.entity;
+package com.company.designstudio.entity;
 
 import lombok.Data;
-import com.company.design_studio.entity.Designer;
+
+import java.math.BigDecimal;
+
 @Data
 public class ProjectInfo {
     private Long id;
     private Designer designer;
-    private Double total_price;
+    private Long projectId;
+    private BigDecimal totalPrice;
     private Status status;
 }

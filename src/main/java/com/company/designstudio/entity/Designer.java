@@ -1,4 +1,4 @@
-package com.company.design_studio.entity;
+package com.company.designstudio.entity;
 
 import lombok.Data;
 
@@ -12,4 +12,9 @@ public class Designer {
     private String password;
     private Specialization specialization;
     private Role role;
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName;
+    }
 }

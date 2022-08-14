@@ -1,4 +1,4 @@
-package com.company.design_studio.entity;
+package com.company.designstudio.entity;
 
 public enum Role {
     GUEST, ADMIN, DESIGNER

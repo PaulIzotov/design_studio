@@ -1,4 +1,4 @@
-package com.company.design_studio.entity;
+package com.company.designstudio.entity;
 
 import lombok.Data;
 
@@ -10,4 +10,9 @@ public class Administrator {
     private String email;
     private String password;
     private Role role;
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName;
+    }
 }
