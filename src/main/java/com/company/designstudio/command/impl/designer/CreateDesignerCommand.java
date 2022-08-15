@@ -1,4 +1,4 @@
-package com.company.designstudio.command.impl;
+package com.company.designstudio.command.impl.designer;
 
 import com.company.designstudio.command.Command;
 import com.company.designstudio.dto.DesignerDto;
