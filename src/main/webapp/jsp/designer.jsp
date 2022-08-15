@@ -9,6 +9,7 @@
 <body>
 <h1>Info about designer</h1>
 <p>${requestScope.message}</p>
+<jsp:include page="navbar.jsp"/>
 <table>
     <tr><th>Id</th><th>${designer.id}</th></tr>
     <tr><th>FirstName</th><th>${designer.firstName}</th></tr>

@@ -8,6 +8,7 @@
 </head>
 <body>
     <h1>Login</h1>
+    <jsp:include page="navbar.jsp"/>
     <form method="post" action="controller">
         <input name="command" type="hidden" value="login"/>
         <label for="email-input">Email: </label>

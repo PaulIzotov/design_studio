@@ -8,6 +8,7 @@
 </head>
 <body>
 <h1>Info about administrator</h1>
+<jsp:include page="navbar.jsp"/>
 <table>
     <tr><th>Id</th><th>${administrator.id}</th></tr>
     <tr><th>FirstName</th><th>${administrator.firstName}</th></tr>

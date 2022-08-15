@@ -6,14 +6,8 @@
     <title>Design-studio Monkeys</title>
 </head>
 <body>
-<h1>Welcome to design-studio Monkeys!</h1>
-<h3>Here your dreams comes true</h3>
-<ul>
-    <li><a href="controller?command=create_designer_form">Sign up</a></li>
-    <li><a href="controller?command=login_form">Sign in</a></li>
-    <li><a href="controller?command=designers">List of designers </a></li>
-    <li><a href="controller?command=administrators">List of admins</a></li>
-    <li><a href="controller?command=projects">List of projects</a></li>
-</ul>
+    <h1>Welcome to design-studio Monkeys!</h1>
+    <h3>Here your dreams comes true</h3>
+    <jsp:include page="jsp/navbar.jsp"/>
 </body>
 </html>

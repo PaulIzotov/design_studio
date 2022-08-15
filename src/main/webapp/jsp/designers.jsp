@@ -7,6 +7,8 @@
     <title>Designers</title>
 </head>
 <body>
+<h1>Designers</h1>
+<jsp:include page="navbar.jsp"/>
     <table>
         <tr>
             <th>#</th>

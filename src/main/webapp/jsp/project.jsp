@@ -8,6 +8,7 @@
 </head>
 <body>
 <h1>Info about project</h1>
+<jsp:include page="navbar.jsp"/>
 <table>
     <tr><th>Id</th><th>${project.id}</th></tr>
     <tr><th>Administrator</th><th>${project.admin}</th></tr>

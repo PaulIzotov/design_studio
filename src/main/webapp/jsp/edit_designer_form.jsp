@@ -8,6 +8,7 @@
 </head>
 <body>
     <h1>Register new designer</h1>
+    <jsp:include page="navbar.jsp"/>
     <form method="post" action="controller">
         <input name="command" type="hidden" value="create_designer"/>
         <input name="id" type="hidden" value="${requestScope.designer.id}">

@@ -8,6 +8,7 @@
 </head>
 <body>
     <h1>Error</h1>
+    <jsp:include page="navbar.jsp"/>
     <p>You make something wrong, sorry</p>
 </body>
 </html>
