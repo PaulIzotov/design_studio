@@ -42,7 +42,8 @@ public class DesignerDaoImpl implements DesignerDao {
 
     private static final String INSERT = "INSERT INTO designers (firstName, lastName, experience, email, "
             + "password, specialization_id, role_id) "
-            + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+            + "VALUES (?, ?, ?, ?, ?, (SELECT id FROM specializations WHERE name = ?), "
+            + "(SELECT id FROM roles WHERE name = ?))";
 
     private static final String UPDATE = "UPDATE designers SET firstName = ?, lastName = ?, "
             + "experience = ?, email = ?, password = ? "
@@ -115,6 +116,8 @@ public class DesignerDaoImpl implements DesignerDao {
             statement.setLong(3, entity.getExperience());
             statement.setString(4, entity.getEmail());
             statement.setString(5, entity.getPassword());
+            statement.setString(6, "INTERIOR");
+            statement.setString(7, "DESIGNER");
 
             statement.executeUpdate();
 
