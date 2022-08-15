@@ -32,7 +32,7 @@ public class DesignerServiceImpl implements DesignerService {
     public DesignerDto findById(Long id) {
         Designer entity = designerDao.findById(id);
         if (entity == null) {
-            throw new RuntimeException("Can't create designer with such id: " + id);
+            throw new RuntimeException("Can't find designer with such id: " + id);
         }
         return toEntityDto(entity);
     }
@@ -71,7 +71,7 @@ public class DesignerServiceImpl implements DesignerService {
         }
     }
 
-    private DesignerDto toEntityDto(Designer entity) {
+    public DesignerDto toEntityDto(Designer entity) {
         DesignerDto entityDto = new DesignerDto();
         entityDto.setId(entity.getId());
         entityDto.setFirstName(entity.getFirstName());

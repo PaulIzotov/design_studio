@@ -12,6 +12,8 @@ import java.io.IOException;
 @WebServlet("/controller")
 public class Controller extends HttpServlet {
 
+    public static final String REDIRECT = "redirect:";
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         process(req, resp);
@@ -26,7 +28,11 @@ public class Controller extends HttpServlet {
         String command = req.getParameter("command");
         Command commandInstance = CommandFactory.getInstance().getCommand(command);
         String page = commandInstance.execute(req);
-        req.getRequestDispatcher(page).forward(req, resp);
+        if (page.startsWith(REDIRECT)){
+            resp.sendRedirect(req.getContextPath() + "/" + page.substring(REDIRECT.length()));
+        } else {
+            req.getRequestDispatcher(page).forward(req, resp);
+        }
     }
     @Override
     public void destroy() {

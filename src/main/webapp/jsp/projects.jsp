@@ -24,13 +24,6 @@
                 <td>${project.priceM2}</td>
                 <td>${project.admin}</td>
                 <td>${project.designer}</td>
-                <td>
-                    <form method="post" action="controller">
-                        <input type="hidden" name="command" value="add_to_project_list">
-                        <input type="hidden" name="projectId" value="${project.id}">
-                        <input type="submit" value="Add to project list">
-                    </form>
-                </td>
             </tr>
         </c:forEach>
     </table>

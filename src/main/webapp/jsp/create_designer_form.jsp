@@ -24,7 +24,7 @@
         <input id="email-input" name="email" type="email"/>
         <br/>
         <label for="password-input">Password: </label>
-        <input id="password-input" name="password" type="password" min="4"/>
+        <input id="password-input" name="password" type="password" minlength="4"/>
         <br/>
 
         <input type="submit" value="REGISTER"/>

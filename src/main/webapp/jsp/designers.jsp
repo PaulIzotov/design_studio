@@ -26,6 +26,13 @@
                 <td>${designer.experience}</td>
                 <td>${designer.email}</td>
                 <td>${designer.specialization}</td>
+                <td>
+                    <form method="post" action="controller">
+                        <input type="hidden" name="command" value="edit_designer">
+                        <input type="hidden" name="designerId" value="${designer.id}">
+                        <input type="submit" value="Edit">
+                    </form>
+                </td>
             </tr>
         </c:forEach>
     </table>

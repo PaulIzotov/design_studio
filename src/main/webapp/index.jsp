@@ -6,8 +6,8 @@
     <title>Design-studio Monkeys</title>
 </head>
 <body>
-    <h1>Welcome to design-studio Monkeys!</h1>
-    <h3>Here your dreams comes true</h3>
     <jsp:include page="jsp/navbar.jsp"/>
+    <h1>Welcome to design-studio Monkeys, ${sessionScope.designer != null ? sessionScope.designer.firstName : 'Guest'}!</h1>
+    <h3>Here your dreams comes true</h3>
 </body>
 </html>

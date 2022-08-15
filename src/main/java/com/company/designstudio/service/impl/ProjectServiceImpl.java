@@ -1,12 +1,15 @@
 package com.company.designstudio.service.impl;
 
 import com.company.designstudio.dao.ProjectDao;
+import com.company.designstudio.dto.DesignerDto;
 import com.company.designstudio.dto.ProjectDto;
+import com.company.designstudio.entity.Designer;
 import com.company.designstudio.entity.Project;
 import com.company.designstudio.service.ProjectService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ProjectServiceImpl implements ProjectService {
     private final ProjectDao projectDao;

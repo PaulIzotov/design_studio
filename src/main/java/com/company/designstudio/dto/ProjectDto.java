@@ -1,8 +1,6 @@
 package com.company.designstudio.dto;
 
-import com.company.designstudio.entity.Administrator;
-import com.company.designstudio.entity.Designer;
-import com.company.designstudio.entity.ProjectInfo;
+import com.company.designstudio.entity.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -17,4 +15,6 @@ public class ProjectDto {
     private BigDecimal priceM2;
     private BigDecimal square;
     private List<ProjectInfoDto> details;
+
+
 }

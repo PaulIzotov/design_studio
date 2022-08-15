@@ -1,5 +1,6 @@
 package com.company.designstudio.dto;
 
+import com.company.designstudio.entity.Designer;
 import com.company.designstudio.entity.Role;
 import com.company.designstudio.entity.Specialization;
 import lombok.Data;

@@ -1,6 +1,11 @@
 package com.company.designstudio.command;
 
 import com.company.designstudio.command.impl.*;
+import com.company.designstudio.command.impl.administrator.AdministratorCommand;
+import com.company.designstudio.command.impl.administrator.AdministratorsCommand;
+import com.company.designstudio.command.impl.designer.*;
+import com.company.designstudio.command.impl.project.ProjectCommand;
+import com.company.designstudio.command.impl.project.ProjectsCommand;
 import com.company.designstudio.service.AdministratorService;
 import com.company.designstudio.service.DesignerService;
 import com.company.designstudio.service.ProjectService;
@@ -31,6 +36,8 @@ public class CommandFactory {
         commands.put("login_form", new LoginFormCommand());
         commands.put("login", new LoginCommand(ServiceFactory.INSTANCE.getService(DesignerService.class)));
         commands.put("logout", new LogoutCommand());
+        commands.put("edit_designer_form", new EditDesignerFormCommand(ServiceFactory.INSTANCE.getService(DesignerService.class)));
+        commands.put("edit_designer", new EditDesignerCommand(ServiceFactory.INSTANCE.getService(DesignerService.class)));
     }
 
     public Command getCommand(String command) {
