@@ -30,6 +30,7 @@ public class CommandFactory {
         commands.put("error", new ErrorCommand());
         commands.put("login_form", new LoginFormCommand());
         commands.put("login", new LoginCommand(ServiceFactory.INSTANCE.getService(DesignerService.class)));
+        commands.put("logout", new LogoutCommand());
     }
 
     public Command getCommand(String command) {
