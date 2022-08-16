@@ -38,6 +38,7 @@ public class CommandFactory {
         commands.put("logout", new LogoutCommand());
         commands.put("edit_designer_form", new EditDesignerFormCommand(ServiceFactory.INSTANCE.getService(DesignerService.class)));
         commands.put("edit_designer", new EditDesignerCommand(ServiceFactory.INSTANCE.getService(DesignerService.class)));
+        commands.put("home", new HomeCommand());
     }
 
     public Command getCommand(String command) {
