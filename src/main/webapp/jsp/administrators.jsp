@@ -10,6 +10,11 @@
 <h1>Administrators</h1>
 <jsp:include page="navbar.jsp"/>
     <table>
+        <a href="controller?command=administrators&page=1">First</a>
+        <a href="controller?command=administrators&page=${requestScope.currentPage - 1}">Previous</a>
+        Page ${requestScope.currentPage} / ${requestScope.totalPages}
+        <a href="controller?command=administrators&page=${requestScope.currentPage + 1}">Next</a>
+        <a href="controller?command=administrators&page=${requestScope.totalPages}">Last</a>
         <tr>
             <th>#</th>
             <th>FirstName</th>

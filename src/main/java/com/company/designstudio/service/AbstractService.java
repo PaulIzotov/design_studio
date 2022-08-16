@@ -3,7 +3,7 @@ package com.company.designstudio.service;
 import java.util.List;
 
 public interface AbstractService<K, T> {
-    List<T> findAll();
+    List<T> findAll(int limit, long offset);
 
     T findById(K id);
 
@@ -12,4 +12,6 @@ public interface AbstractService<K, T> {
     T update(T entity);
 
     void delete(K id);
+
+    long count();
 }

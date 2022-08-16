@@ -18,6 +18,11 @@ public class ProjectInfoDaoImpl implements ProjectInfoDao {
             + "FROM project_infos i "
             + "JOIN status s ON i.status_id = s.id JOIN projects p ON i.project_id = p.id "
             + "WHERE i.deleted = false";
+    private static final String FIND_ALL_PAGES = "SELECT i.id, i.designer_id AS designer, i_project_id AS project, "
+            + "i.totalPrice, s.name AS status "
+            + "FROM project_infos i "
+            + "JOIN status s ON i.status_id = s.id JOIN projects p ON i.project_id = p.id "
+            + "WHERE i.deleted = false LIMIT ? OFFSET ?";
 
     private static final String FIND_BY_ID = "SELECT i.id, i.designer_id AS designer, i_project_id AS project, "
             + "i.totalPrice, s.name AS status "
@@ -51,12 +56,14 @@ public class ProjectInfoDaoImpl implements ProjectInfoDao {
     }
 
     @Override
-    public List<ProjectInfo> findAll() {
+    public List<ProjectInfo> findAll(int limit, long offset) {
         List<ProjectInfo> list = new ArrayList<>();
         try (Connection connection = dataSource.getConnection()) {
             log.debug("Query 'find all'");
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(FIND_ALL);
+            PreparedStatement statement = connection.prepareStatement(FIND_ALL_PAGES);
+            statement.setInt(1, limit);
+            statement.setLong(2, offset);
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 list.add(process(resultSet));
             }
@@ -166,5 +173,20 @@ public class ProjectInfoDaoImpl implements ProjectInfoDao {
             log.error("Error executing command 'find by project id', ", e);
         }
         return list;
+    }
+
+    @Override
+    public long count() {
+        try (Connection connection = dataSource.getConnection()) {
+            log.debug("Query 'find all'");
+            PreparedStatement statement = connection.prepareStatement("SELECT count(*) AS total FROM projects");
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getLong("total");
+            }
+        } catch (SQLException e) {
+            log.error("Error executing command 'all', ", e);
+        }
+        throw new RuntimeException("Couldn't count projects");
     }
 }

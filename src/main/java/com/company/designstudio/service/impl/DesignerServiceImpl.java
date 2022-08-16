@@ -18,8 +18,8 @@ public class DesignerServiceImpl implements DesignerService {
     }
 
     @Override
-    public List<DesignerDto> findAll() {
-        List<Designer> list = designerDao.findAll();
+    public List<DesignerDto> findAll(int limit, long offset) {
+        List<Designer> list = designerDao.findAll(limit, offset);
         List<DesignerDto> listDto = new ArrayList<>();
         for (Designer entity : list) {
             DesignerDto entityDto = toEntityDto(entity);
@@ -71,6 +71,11 @@ public class DesignerServiceImpl implements DesignerService {
         }
     }
 
+    @Override
+    public long count() {
+        return designerDao.count();
+    }
+
     public DesignerDto toEntityDto(Designer entity) {
         DesignerDto entityDto = new DesignerDto();
         entityDto.setId(entity.getId());
@@ -112,4 +117,6 @@ public class DesignerServiceImpl implements DesignerService {
         }
         return toEntityDto(entity);
     }
+
+
 }

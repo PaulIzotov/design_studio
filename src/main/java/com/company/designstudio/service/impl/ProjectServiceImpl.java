@@ -19,8 +19,8 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<ProjectDto> findAll() {
-        List<Project> list = projectDao.findAll();
+    public List<ProjectDto> findAll(int limit, long offset) {
+        List<Project> list = projectDao.findAll(limit, offset);
         List<ProjectDto> listDto = new ArrayList<>();
         for (Project entity : list) {
             ProjectDto entityDto = toEntityDto(entity);
@@ -61,6 +61,11 @@ public class ProjectServiceImpl implements ProjectService {
         if (!projectDao.delete(id)) {
             throw new RuntimeException("Couldn't delete project " + id);
         }
+    }
+
+    @Override
+    public long count() {
+        return projectDao.count();
     }
 
     private ProjectDto toEntityDto(Project entity) {

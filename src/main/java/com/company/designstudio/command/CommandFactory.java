@@ -6,6 +6,7 @@ import com.company.designstudio.command.impl.administrator.AdministratorsCommand
 import com.company.designstudio.command.impl.designer.*;
 import com.company.designstudio.command.impl.project.ProjectCommand;
 import com.company.designstudio.command.impl.project.ProjectsCommand;
+import com.company.designstudio.command.impl.util.PagingUtil;
 import com.company.designstudio.service.AdministratorService;
 import com.company.designstudio.service.DesignerService;
 import com.company.designstudio.service.ProjectService;
@@ -24,11 +25,14 @@ public class CommandFactory {
 
     private CommandFactory() {
         commands = new HashMap<>();
-        commands.put("designers", new DesignersCommand(ServiceFactory.INSTANCE.getService(DesignerService.class)));
+        commands.put("designers", new DesignersCommand(ServiceFactory.INSTANCE.getService(DesignerService.class),
+                PagingUtil.INSTANCE));
         commands.put("designer", new DesignerCommand(ServiceFactory.INSTANCE.getService(DesignerService.class)));
-        commands.put("administrators", new AdministratorsCommand(ServiceFactory.INSTANCE.getService(AdministratorService.class)));
+        commands.put("administrators", new AdministratorsCommand(ServiceFactory.INSTANCE.getService(AdministratorService.class),
+                PagingUtil.INSTANCE));
         commands.put("administrator", new AdministratorCommand(ServiceFactory.INSTANCE.getService(AdministratorService.class)));
-        commands.put("projects", new ProjectsCommand(ServiceFactory.INSTANCE.getService(ProjectService.class)));
+        commands.put("projects", new ProjectsCommand(ServiceFactory.INSTANCE.getService(ProjectService.class),
+                PagingUtil.INSTANCE));
         commands.put("project", new ProjectCommand(ServiceFactory.INSTANCE.getService(ProjectService.class)));
         commands.put("create_designer_form", new CreateDesignerFormCommand());
         commands.put("create_designer", new CreateDesignerCommand(ServiceFactory.INSTANCE.getService(DesignerService.class)));

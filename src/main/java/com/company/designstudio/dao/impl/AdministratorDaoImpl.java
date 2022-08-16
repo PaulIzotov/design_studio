@@ -23,6 +23,11 @@ public class AdministratorDaoImpl implements AdministratorDao {
             + "FROM administrators ad "
             + "JOIN roles r ON ad.role_id = r.id WHERE ad.deleted = false";
 
+    private static final String FIND_ALL_PAGES = "SELECT ad.id, ad.firstName, ad.lastName, ad.email, ad.password, "
+            + "r.name AS role "
+            + "FROM administrators ad "
+            + "JOIN roles r ON ad.role_id = r.id WHERE ad.deleted = false LIMIT ? OFFSET ?";
+
     private static final String FIND_BY_ID = "SELECT ad.id, ad.firstName, ad.lastName, ad.email, ad.password, "
             + "r.name AS role "
             + "FROM administrators ad "
@@ -47,12 +52,14 @@ public class AdministratorDaoImpl implements AdministratorDao {
     }
 
     @Override
-    public List<Administrator> findAll() {
+    public List<Administrator> findAll(int limit, long offset) {
         List<Administrator> list = new ArrayList<>();
         try (Connection connection = dataSource.getConnection()) {
             log.debug("Query 'find all'");
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(FIND_ALL);
+            PreparedStatement statement = connection.prepareStatement(FIND_ALL_PAGES);
+            statement.setInt(1, limit);
+            statement.setLong(2, offset);
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 list.add(process(resultSet));
             }
@@ -145,5 +152,20 @@ public class AdministratorDaoImpl implements AdministratorDao {
         entity.setPassword(resultSet.getString("password"));
         entity.setRole(Role.valueOf(resultSet.getString("role")));
         return entity;
+    }
+
+    @Override
+    public long count() {
+        try (Connection connection = dataSource.getConnection()) {
+            log.debug("Query 'find all'");
+            PreparedStatement statement = connection.prepareStatement("SELECT count(*) AS total FROM project_infos");
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getLong("total");
+            }
+        } catch (SQLException e) {
+            log.error("Error executing command 'all', ", e);
+        }
+        throw new RuntimeException("Couldn't count project_infos");
     }
 }

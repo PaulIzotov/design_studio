@@ -22,6 +22,11 @@ public class ProjectDaoImpl implements ProjectDao {
             + "FROM projects p JOIN administrators ad ON p.admin_id = ad.id JOIN designers d ON p.designer_id = d.id "
             + "WHERE p.deleted = false";
 
+    private static final String FIND_ALL_PAGES = "SELECT p.id, p.admin_id AS admin, p.designer_id AS designer, "
+            + "p.priceM2, p.square "
+            + "FROM projects p JOIN administrators ad ON p.admin_id = ad.id JOIN designers d ON p.designer_id = d.id "
+            + "WHERE p.deleted = false LIMIT ? OFFSET ?";
+
     private static final String FIND_BY_ID = "SELECT p.id, p.admin_id AS admin, p.designer_id AS designer, "
             + "p.priceM2, p.square "
             + "FROM projects p "
@@ -51,12 +56,14 @@ public class ProjectDaoImpl implements ProjectDao {
 
     }
     @Override
-    public List<Project> findAll() {
+    public List<Project> findAll(int limit, long offset) {
         List<Project> list = new ArrayList<>();
         try (Connection connection = dataSource.getConnection()) {
             log.debug("Query 'find all'");
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(FIND_ALL);
+            PreparedStatement statement = connection.prepareStatement(FIND_ALL_PAGES);
+            statement.setInt(1, limit);
+            statement.setLong(2, offset);
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 list.add(process(resultSet));
             }
@@ -162,5 +169,20 @@ public class ProjectDaoImpl implements ProjectDao {
         entity.setDetails(details);
 
         return entity;
+    }
+
+    @Override
+    public long count() {
+        try (Connection connection = dataSource.getConnection()) {
+            log.debug("Query 'find all'");
+            PreparedStatement statement = connection.prepareStatement("SELECT count(*) AS total FROM projects");
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getLong("total");
+            }
+        } catch (SQLException e) {
+            log.error("Error executing command 'all', ", e);
+        }
+        throw new RuntimeException("Couldn't count projects");
     }
 }

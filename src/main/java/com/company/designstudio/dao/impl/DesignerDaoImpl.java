@@ -26,6 +26,13 @@ public class DesignerDaoImpl implements DesignerDao {
             + "JOIN roles r ON d.role_id = r.id "
             + "WHERE d.deleted = false";
 
+    private static final String FIND_ALL_PAGES = "SELECT d.id, d.firstName, d.lastName, d.experience, d.email, d.password, "
+            + "sp.name AS specialization, r.name AS role "
+            + "FROM designers d "
+            + "JOIN specializations sp ON d.specialization_id = sp.id "
+            + "JOIN roles r ON d.role_id = r.id "
+            + "WHERE d.deleted = false LIMIT ? OFFSET ?";
+
     private static final String FIND_BY_ID = "SELECT d.id, d.firstName, d.lastName, d.experience, d.email, d.password, "
             + "sp.name AS specialization , r.name AS role "
             + "FROM designers d "
@@ -59,13 +66,31 @@ public class DesignerDaoImpl implements DesignerDao {
         this.dataSource = dataSource;
     }
 
+//    @Override
+//    public List<Designer> findAll() {
+//        List<Designer> list = new ArrayList<>();
+//        try (Connection connection = dataSource.getConnection()) {
+//            log.debug("Query 'find all'");
+//            Statement statement = connection.createStatement();
+//            ResultSet resultSet = statement.executeQuery(FIND_ALL);
+//            while (resultSet.next()) {
+//                list.add(process(resultSet));
+//            }
+//        } catch (SQLException e) {
+//            log.error("Error executing command 'all', ", e);
+//        }
+//        return list;
+//    }
+
     @Override
-    public List<Designer> findAll() {
+    public List<Designer> findAll(int limit, long offset) {
         List<Designer> list = new ArrayList<>();
         try (Connection connection = dataSource.getConnection()) {
             log.debug("Query 'find all'");
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(FIND_ALL);
+            PreparedStatement statement = connection.prepareStatement(FIND_ALL_PAGES);
+            statement.setInt(1, limit);
+            statement.setLong(2, offset);
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 list.add(process(resultSet));
             }
@@ -167,6 +192,21 @@ public class DesignerDaoImpl implements DesignerDao {
             log.error(e.getMessage(), e);
         }
         return false;
+    }
+
+    @Override
+    public long count() {
+        try (Connection connection = dataSource.getConnection()) {
+            log.debug("Query 'find all'");
+            PreparedStatement statement = connection.prepareStatement("SELECT count(*) AS total FROM designers");
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getLong("total");
+            }
+        } catch (SQLException e) {
+            log.error("Error executing command 'all', ", e);
+        }
+        throw new RuntimeException("Couldn't count designers");
     }
 
     private Designer process(ResultSet resultSet) throws SQLException {

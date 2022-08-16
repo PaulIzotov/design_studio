@@ -17,8 +17,8 @@ public class AdministratorServiceImpl implements AdministratorService {
     }
 
     @Override
-    public List<AdministratorDto> findAll() {
-        List<Administrator> list = administratorDao.findAll();
+    public List<AdministratorDto> findAll(int limit, long offset) {
+        List<Administrator> list = administratorDao.findAll(limit, offset);
         List<AdministratorDto> listDto = new ArrayList<>();
         for (Administrator entity : list) {
             AdministratorDto entityDto = toEntityDto(entity);
@@ -59,6 +59,11 @@ public class AdministratorServiceImpl implements AdministratorService {
         if (!administratorDao.delete(id)) {
             throw new RuntimeException("Couldn't delete administrator " + id);
         }
+    }
+
+    @Override
+    public long count() {
+        return administratorDao.count();
     }
 
     private AdministratorDto toEntityDto(Administrator entity) {
