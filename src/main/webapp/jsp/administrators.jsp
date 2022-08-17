@@ -20,8 +20,10 @@
         <c:forEach items="${administrators}" var="administrator" varStatus="counter">
             <tr>
                 <td>${counter.count}</td>
-                <td><a href="controller?command=administrator&id=${administrator.id}">${administrator.firstName}</a></td>
-                <td><a href="controller?command=administrator&id=${administrator.id}">${administrator.lastName}</a></td>
+                <td><a href="controller?command=administrator&id=${administrator.id}">
+                <c:out value="${administrator.firstName}"/></a></td>
+                <td><a href="controller?command=administrator&id=${administrator.id}">
+                <c:out value="${administrator.lastName}"/></a></td>
                 <td>${administrator.email}</td>
             </tr>
         </c:forEach>

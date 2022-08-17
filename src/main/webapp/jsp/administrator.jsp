@@ -11,9 +11,9 @@
 <jsp:include page="navbar.jsp"/>
 <table>
     <tr><th>Id</th><th>${administrator.id}</th></tr>
-    <tr><th>FirstName</th><th>${administrator.firstName}</th></tr>
-    <tr><th>LastName</th><th>${administrator.lastName}</th></tr>
-    <tr><th>Email</th><th>${administrator.email}</th></tr>
+    <tr><th>FirstName</th><th><c:out value="${administrator.firstName}"/></th></tr>
+    <tr><th>LastName</th><th><c:out value="${administrator.lastName}"/></th></tr>
+    <tr><th>Email</th><th><c:out value="${administrator.email}"/></th></tr>
 </table>
 </body>
 </html>

@@ -12,11 +12,11 @@
 <jsp:include page="navbar.jsp"/>
 <table>
     <tr><th>Id</th><th>${designer.id}</th></tr>
-    <tr><th>FirstName</th><th>${designer.firstName}</th></tr>
-    <tr><th>LastName</th><th>${designer.lastName}</th></tr>
-    <tr><th>Experience</th><th>${designer.experience}</th></tr>
-    <tr><th>Email</th><th>${designer.email}</th></tr>
-    <tr><th>Specialization</th><th>${designer.specialization}</th></tr>
+    <tr><th>FirstName</th><th><c:out value="${designer.firstName}"/></th></tr>
+    <tr><th>LastName</th><th><c:out value="${designer.lastName}"/></th></tr>
+    <tr><th>Experience</th><th><c:out value="${designer.experience}"/></th></tr>
+    <tr><th>Email</th><th><c:out value="${designer.email}"/></th></tr>
+    <tr><th>Specialization</th><th><c:out value="${designer.specialization}"/></th></tr>
 </table>
 </body>
 </html>

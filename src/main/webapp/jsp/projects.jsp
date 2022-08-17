@@ -20,10 +20,10 @@
         <c:forEach items="${projects}" var="project" varStatus="counter">
             <tr>
                 <td>${counter.count}</td>
-                <td><a href="controller?command=project&id=${project.id}">${project.square}</a></td>
-                <td>${project.priceM2}</td>
-                <td>${project.admin}</td>
-                <td>${project.designer}</td>
+                <td><a href="controller?command=project&id=${project.id}"><c:out value="${project.square}"/></a></td>
+                <td><c:out value="${project.priceM2}"/></td>
+                <td><c:out value="${project.admin}"/></td>
+                <td><c:out value="${project.designer}"/></td>
             </tr>
         </c:forEach>
     </table>

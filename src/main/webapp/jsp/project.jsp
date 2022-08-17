@@ -11,10 +11,10 @@
 <jsp:include page="navbar.jsp"/>
 <table>
     <tr><th>Id</th><th>${project.id}</th></tr>
-    <tr><th>Administrator</th><th>${project.admin}</th></tr>
-    <tr><th>Designer</th><th>${project.designer}</th></tr>
-    <tr><th>Price for m2</th><th>${project.priceM2}</th></tr>
-    <tr><th>Square</th><th>${project.square}</th></tr>
+    <tr><th>Administrator</th><th><c:out value="${project.admin}"/></th></tr>
+    <tr><th>Designer</th><th><c:out value="${project.designer}"/></th></tr>
+    <tr><th>Price for m2</th><th><c:out value="${project.priceM2}"/></th></tr>
+    <tr><th>Square</th><th><c:out value="${project.square}"/></th></tr>
 </table>
 </body>
 </html>
