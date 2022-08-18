@@ -11,7 +11,7 @@
     <jsp:include page="navbar.jsp"/>
     <form method="post" action="controller">
         <input name="command" type="hidden" value="edit_designer"/>
-        <input name="id" type="hidden" value="${requestScope.designer.id}">
+        <input name="id" type="hidden" value="${requestScope.designer.id}"/>
         <label for="firstName-input">First name: </label>
         <input id="firstName-input" name="firstName" type="text" value="${requestScope.designer.firstName}"/>
         <br/>

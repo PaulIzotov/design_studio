@@ -6,6 +6,7 @@ import com.company.designstudio.entity.Designer;
 import com.company.designstudio.entity.Specialization;
 import com.company.designstudio.entity.Role;
 import com.company.designstudio.service.DesignerService;
+import com.company.designstudio.service.DigestUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +53,17 @@ public class DesignerServiceImpl implements DesignerService {
         if (existing != null) {
             throw new RuntimeException("Designer already exists");
         }
-        return toEntityDto(designerDao.save(toEntity(entityDto)));
+        validate(entityDto);
+        Designer entity = toEntity(entityDto);
+        String hashedPassword = DigestUtil.INSTANCE.hash(entity.getPassword());
+        entity.setPassword(hashedPassword);
+        return toEntityDto(designerDao.save(entity));
+    }
+
+    private void validate(DesignerDto entityDto) {
+        if (entityDto.getPassword().length() < 4) {
+            throw new RuntimeException("Password too short");
+        }
     }
 
     @Override
@@ -112,7 +123,8 @@ public class DesignerServiceImpl implements DesignerService {
         if (entity == null) {
             throw new RuntimeException("Can't create designer with such email: " + email);
         }
-        if (!entity.getPassword().equals(password)){
+        String hashedPassword = DigestUtil.INSTANCE.hash(password);
+        if (!entity.getPassword().equals(hashedPassword)){
             throw new RuntimeException("Wrong password with email: " + email);
         }
         return toEntityDto(entity);

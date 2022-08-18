@@ -21,11 +21,11 @@
         <c:forEach items="${designers}" var="designer" varStatus="counter">
             <tr>
                 <td>${counter.count}</td>
-                <td><a href="controller?command=designer&id=${designer.id}">${designer.firstName}</a></td>
-                <td><a href="controller?command=designer&id=${designer.id}">${designer.lastName}</a></td>
-                <td>${designer.experience}</td>
-                <td>${designer.email}</td>
-                <td>${designer.specialization}</td>
+                <td><a href="controller?command=designer&id=${designer.id}"><c:out value="${designer.firstName}"/></a></td>
+                <td><a href="controller?command=designer&id=${designer.id}"><c:out value="${designer.lastName}"/></a></td>
+                <td><c:out value="${designer.experience}"/></td>
+                <td><c:out value="${designer.email}"/></td>
+                <td><c:out value="${designer.specialization}"/></td>
                 <td>
                     <form method="post" action="controller">
                         <input type="hidden" name="command" value="edit_designer">
