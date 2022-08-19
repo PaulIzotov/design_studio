@@ -54,7 +54,7 @@ public class DesignerDaoImpl implements DesignerDao {
 
     private static final String UPDATE = "UPDATE designers SET firstName = ?, lastName = ?, "
             + "experience = ?, email = ?, password = ? "
-            + "WHERE id = ? AND d.deleted = false";
+            + "WHERE id = ? AND deleted = false";
 
     private static final String DELETE = "UPDATE designers SET deleted = true WHERE id = ?";
 

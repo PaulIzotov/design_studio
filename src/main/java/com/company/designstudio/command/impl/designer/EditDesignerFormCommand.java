@@ -14,7 +14,7 @@ public class EditDesignerFormCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req) {
-        Long id = Long.parseLong(req.getParameter("id"));
+        Long id = Long.parseLong(req.getParameter("designerId"));
         DesignerDto designerDto = service.findById(id);
         req.setAttribute("designer", designerDto);
         return "jsp/edit_designer_form.jsp";

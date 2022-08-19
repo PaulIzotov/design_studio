@@ -31,7 +31,7 @@
             value="EXTERIOR" ${requestScope.specialization=='EXTERIOR' ? 'checked' : ''}>
         <label for="specialization-input-exterior">Exterior</label>
         <input id="specialization-input-architecture" name="specialization" type="radio"
-            value="ARCHITECTURE" ${requestScope.specialization=='ARCHITECTURE' ? 'checked' : ''}>
+            value="ARCHITECT" ${requestScope.specialization=='ARCHITECT' ? 'checked' : ''}>
         <label for="specialization-input-architecture">Architecture</label>
         <br/>
         <input id="role-input-admin" name="role" type="radio"

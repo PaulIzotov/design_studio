@@ -28,7 +28,7 @@
                 <td><c:out value="${designer.specialization}"/></td>
                 <td>
                     <form method="post" action="controller">
-                        <input type="hidden" name="command" value="edit_designer">
+                        <input type="hidden" name="command" value="edit_designer_form">
                         <input type="hidden" name="designerId" value="${designer.id}">
                         <input type="submit" value="Edit">
                     </form>
