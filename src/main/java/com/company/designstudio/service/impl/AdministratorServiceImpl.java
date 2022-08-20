@@ -5,6 +5,7 @@ import com.company.designstudio.dto.AdministratorDto;
 import com.company.designstudio.entity.Role;
 import com.company.designstudio.entity.Administrator;
 import com.company.designstudio.service.AdministratorService;
+import com.company.designstudio.service.DigestUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,11 +39,15 @@ public class AdministratorServiceImpl implements AdministratorService {
 
     @Override
     public AdministratorDto save(AdministratorDto entityDto) {
-        Administrator existing = administratorDao.findById(entityDto.getId());
+        Administrator existing = administratorDao.findByEmail(entityDto.getEmail());
         if (existing != null) {
             throw new RuntimeException("Administrator already exists");
         }
-        return toEntityDto(administratorDao.save(toEntity(entityDto)));
+        validate(entityDto);
+        Administrator entity = toEntity(entityDto);
+        String hashedPassword = DigestUtil.INSTANCE.hash(entity.getPassword());
+        entity.setPassword(hashedPassword);
+        return toEntityDto(administratorDao.save(entity));
     }
 
     @Override
@@ -88,5 +93,11 @@ public class AdministratorServiceImpl implements AdministratorService {
         Role role = Role.valueOf(dtoRole.toString());
         entity.setRole(role);
         return entity;
+    }
+
+    private void validate(AdministratorDto entityDto) {
+        if (entityDto.getPassword().length() < 4) {
+            throw new RuntimeException("Password too short");
+        }
     }
 }

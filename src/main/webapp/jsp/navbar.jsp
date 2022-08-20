@@ -6,7 +6,8 @@
     <a href="controller?command=logout">Logout</a></li>
 </c:if>
 <c:if test="${sessionScope.designer == null}">
-    <a href="controller?command=create_designer_form">Sign up</a></li>
+    <a href="controller?command=create_designer_form">Register new designer</a></li>
+    <a href="controller?command=create_administrator_form">Register new admin</a></li>
     <a href="controller?command=login_form">Sign in</a></li>
 </c:if>
 <a href="controller?command=designers">List of designers</a></li>

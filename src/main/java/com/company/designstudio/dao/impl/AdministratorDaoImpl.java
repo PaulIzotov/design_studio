@@ -34,12 +34,18 @@ public class AdministratorDaoImpl implements AdministratorDao {
             + "JOIN roles r ON ad.role_id = r.id "
             + "WHERE ad.id = ? AND ad.deleted = false";
 
-    private static final String INSERT = "INSERT INTO administrators (firstName, lastName, email, password) "
-            + "VALUES (?, ?, ?, ?)";
+    private static final String FIND_BY_EMAIL = "SELECT ad.id, ad.firstName, ad.lastName, ad.email, ad.password, "
+            + "r.name AS role "
+            + "FROM administrators ad "
+            + "JOIN roles r ON ad.role_id = r.id "
+            + "WHERE ad.email = ? AND ad.deleted = false";
+
+    private static final String INSERT = "INSERT INTO administrators (firstName, lastName, email, password, role_id) "
+            + "VALUES (?, ?, ?, ?, (SELECT id FROM roles WHERE name = ?))";
 
     private static final String UPDATE = "UPDATE administrators SET firstName = ?, lastName = ?, "
             + "email = ?, password = ? "
-            + "WHERE id = ? AND ad.deleted = false";
+            + "WHERE id = ? AND deleted = false";
 
     private static final String DELETE = "UPDATE administrators SET deleted = true WHERE id = ?";
 
@@ -87,6 +93,23 @@ public class AdministratorDaoImpl implements AdministratorDao {
     }
 
     @Override
+    public Administrator findByEmail(String email) {
+        try (Connection connection = dataSource.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(FIND_BY_EMAIL);
+            statement.setString(1, email);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                return process(resultSet);
+            }
+        } catch (SQLException e) {
+            log.error(e.getMessage(), e);
+        }
+        return null;
+    }
+
+    @Override
     public Administrator save(Administrator entity) {
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
@@ -94,6 +117,7 @@ public class AdministratorDaoImpl implements AdministratorDao {
             statement.setString(2, entity.getLastName());
             statement.setString(3, entity.getEmail());
             statement.setString(4, entity.getPassword());
+            statement.setString(5, "ADMIN");
 
             statement.executeUpdate();
 

@@ -3,6 +3,8 @@ package com.company.designstudio.command;
 import com.company.designstudio.command.impl.*;
 import com.company.designstudio.command.impl.administrator.AdministratorCommand;
 import com.company.designstudio.command.impl.administrator.AdministratorsCommand;
+import com.company.designstudio.command.impl.administrator.CreateAdministratorCommand;
+import com.company.designstudio.command.impl.administrator.CreateAdministratorFormCommand;
 import com.company.designstudio.command.impl.designer.*;
 import com.company.designstudio.command.impl.project.ProjectCommand;
 import com.company.designstudio.command.impl.project.ProjectsCommand;
@@ -28,20 +30,26 @@ public class CommandFactory {
         commands.put("designers", new DesignersCommand(ServiceFactory.INSTANCE.getService(DesignerService.class),
                 PagingUtil.INSTANCE));
         commands.put("designer", new DesignerCommand(ServiceFactory.INSTANCE.getService(DesignerService.class)));
+        commands.put("create_designer_form", new CreateDesignerFormCommand());
+        commands.put("create_designer", new CreateDesignerCommand(ServiceFactory.INSTANCE.getService(DesignerService.class)));
+        commands.put("edit_designer_form", new EditDesignerFormCommand(ServiceFactory.INSTANCE.getService(DesignerService.class)));
+        commands.put("edit_designer", new EditDesignerCommand(ServiceFactory.INSTANCE.getService(DesignerService.class)));
+
         commands.put("administrators", new AdministratorsCommand(ServiceFactory.INSTANCE.getService(AdministratorService.class),
                 PagingUtil.INSTANCE));
         commands.put("administrator", new AdministratorCommand(ServiceFactory.INSTANCE.getService(AdministratorService.class)));
+        commands.put("create_administrator_form", new CreateAdministratorFormCommand());
+        commands.put("create_administrator", new CreateAdministratorCommand(ServiceFactory.INSTANCE.getService(AdministratorService.class)));
+
         commands.put("projects", new ProjectsCommand(ServiceFactory.INSTANCE.getService(ProjectService.class),
                 PagingUtil.INSTANCE));
         commands.put("project", new ProjectCommand(ServiceFactory.INSTANCE.getService(ProjectService.class)));
-        commands.put("create_designer_form", new CreateDesignerFormCommand());
-        commands.put("create_designer", new CreateDesignerCommand(ServiceFactory.INSTANCE.getService(DesignerService.class)));
-        commands.put("error", new ErrorCommand());
+
         commands.put("login_form", new LoginFormCommand());
         commands.put("login", new LoginCommand(ServiceFactory.INSTANCE.getService(DesignerService.class)));
         commands.put("logout", new LogoutCommand());
-        commands.put("edit_designer_form", new EditDesignerFormCommand(ServiceFactory.INSTANCE.getService(DesignerService.class)));
-        commands.put("edit_designer", new EditDesignerCommand(ServiceFactory.INSTANCE.getService(DesignerService.class)));
+
+        commands.put("error", new ErrorCommand());
         commands.put("home", new HomeCommand());
     }
 

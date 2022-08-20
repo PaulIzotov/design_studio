@@ -1,6 +1,5 @@
 package com.company.designstudio.dao.impl;
 
-import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -66,21 +65,6 @@ public class DesignerDaoImpl implements DesignerDao {
         this.dataSource = dataSource;
     }
 
-//    @Override
-//    public List<Designer> findAll() {
-//        List<Designer> list = new ArrayList<>();
-//        try (Connection connection = dataSource.getConnection()) {
-//            log.debug("Query 'find all'");
-//            Statement statement = connection.createStatement();
-//            ResultSet resultSet = statement.executeQuery(FIND_ALL);
-//            while (resultSet.next()) {
-//                list.add(process(resultSet));
-//            }
-//        } catch (SQLException e) {
-//            log.error("Error executing command 'all', ", e);
-//        }
-//        return list;
-//    }
 
     @Override
     public List<Designer> findAll(int limit, long offset) {
@@ -116,7 +100,10 @@ public class DesignerDaoImpl implements DesignerDao {
         }
         return null;
 
-    }public Designer findByEmail(String email) {
+    }
+
+    @Override
+    public Designer findByEmail(String email) {
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(FIND_BY_EMAIL);
             statement.setString(1, email);
