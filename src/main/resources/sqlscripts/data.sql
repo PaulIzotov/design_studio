@@ -1,14 +1,8 @@
-/*
-truncate table designers cascade;
-truncate table administrators cascade;
-truncate table projects cascade;
-truncate table project_infos cascade;
-*/
-
 INSERT INTO roles (name)
 VALUES ('GUEST'),
        ('ADMIN'),
        ('DESIGNER');
+
 
 INSERT INTO specializations (name)
 VALUES ('INTERIOR'),
@@ -38,26 +32,27 @@ values  ('Tom','Thibodeau', 'coach@gmail.ru', 'hgdsfiy99666',  (SELECT id FROM r
 		('Walt','Fraizer', 'comments@gmail.com', 'xkjyiu86908',  (SELECT id FROM roles r WHERE r.name = 'ADMIN')),
 		('Mike','Breen', 'voiceofknicks@mail.ru', '465jjhfu',  (SELECT id FROM roles r WHERE r.name = 'ADMIN'));
 
-insert into projects (admin_id, designer_id, price_for_m2, square)
-values  ((SELECT ad.id FROM administrators ad WHERE ad.id = 1), (SELECT d.id FROM designers d WHERE d.id = 3), 10.2, 100),
-		((SELECT ad.id FROM administrators ad WHERE ad.id = 2), (SELECT d.id FROM designers d WHERE d.id = 7), 7, 65.5),
-		((SELECT ad.id FROM administrators ad WHERE ad.id = 1), (SELECT d.id FROM designers d WHERE d.id = 2), 5.6, 66),
-		((SELECT ad.id FROM administrators ad WHERE ad.id = 3), (SELECT d.id FROM designers d WHERE d.id = 3), 7.7, 102.55),
-		((SELECT ad.id FROM administrators ad WHERE ad.id = 1), (SELECT d.id FROM designers d WHERE d.id = 5), 8.8, 44),
-		((SELECT ad.id FROM administrators ad WHERE ad.id = 3), (SELECT d.id FROM designers d WHERE d.id = 3), 6, 97.32),
-		((SELECT ad.id FROM administrators ad WHERE ad.id = 1), (SELECT d.id FROM designers d WHERE d.id = 6), 11, 55),
-		((SELECT ad.id FROM administrators ad WHERE ad.id = 2), (SELECT d.id FROM designers d WHERE d.id = 2), 12.2, 46.1),
-		((SELECT ad.id FROM administrators ad WHERE ad.id = 2), (SELECT d.id FROM designers d WHERE d.id = 3), 5.8, 88.21),
-		((SELECT ad.id FROM administrators ad WHERE ad.id = 1), (SELECT d.id FROM designers d WHERE d.id = 8), 9.9, 444);
+insert into projects (admin_id, designer_id, priceM2, square)
+values  ((SELECT ad.id FROM administrators ad WHERE ad.id = 7), (SELECT d.id FROM designers d WHERE d.id = 24), 10.2, 100),
+		((SELECT ad.id FROM administrators ad WHERE ad.id = 8), (SELECT d.id FROM designers d WHERE d.id = 25), 7, 65.5),
+		((SELECT ad.id FROM administrators ad WHERE ad.id = 7), (SELECT d.id FROM designers d WHERE d.id = 26), 5.6, 66),
+		((SELECT ad.id FROM administrators ad WHERE ad.id = 8), (SELECT d.id FROM designers d WHERE d.id = 27), 7.7, 102.55),
+		((SELECT ad.id FROM administrators ad WHERE ad.id = 7), (SELECT d.id FROM designers d WHERE d.id = 28), 8.8, 44),
+		((SELECT ad.id FROM administrators ad WHERE ad.id = 9), (SELECT d.id FROM designers d WHERE d.id = 29), 6, 97.32),
+		((SELECT ad.id FROM administrators ad WHERE ad.id = 7), (SELECT d.id FROM designers d WHERE d.id = 30), 11, 55),
+		((SELECT ad.id FROM administrators ad WHERE ad.id = 8), (SELECT d.id FROM designers d WHERE d.id = 31), 12.2, 46.1),
+		((SELECT ad.id FROM administrators ad WHERE ad.id = 8), (SELECT d.id FROM designers d WHERE d.id = 32), 5.8, 88.21),
+		((SELECT ad.id FROM administrators ad WHERE ad.id = 9), (SELECT d.id FROM designers d WHERE d.id = 33), 9.9, 444);
 
-insert into project_infos (designer_id, total_price, status_id)
-values  ((SELECT d.id FROM designers d WHERE d.id = 2), (SELECT p.price_for_m2 * p.square  FROM projects p WHERE p.id = 3), (SELECT id FROM status s WHERE s.name = 'FINISHED')),
-		((SELECT d.id FROM designers d WHERE d.id = 7), (SELECT p.price_for_m2 * p.square  FROM projects p WHERE p.id = 2), (SELECT id FROM status s WHERE s.name = 'DRAWING')),
-		((SELECT d.id FROM designers d WHERE d.id = 3), (SELECT p.price_for_m2 * p.square  FROM projects p WHERE p.id = 1), (SELECT id FROM status s WHERE s.name = 'VISUAL')),
-		((SELECT d.id FROM designers d WHERE d.id = 3), (SELECT p.price_for_m2 * p.square  FROM projects p WHERE p.id = 4), (SELECT id FROM status s WHERE s.name = 'PLANNING')),
-		((SELECT d.id FROM designers d WHERE d.id = 5), (SELECT p.price_for_m2 * p.square  FROM projects p WHERE p.id = 5), (SELECT id FROM status s WHERE s.name = 'DRAWING')),
-		((SELECT d.id FROM designers d WHERE d.id = 3), (SELECT p.price_for_m2 * p.square  FROM projects p WHERE p.id = 6), (SELECT id FROM status s WHERE s.name = 'VISUAL')),
-		((SELECT d.id FROM designers d WHERE d.id = 6), (SELECT p.price_for_m2 * p.square  FROM projects p WHERE p.id = 7), (SELECT id FROM status s WHERE s.name = 'PLANNING')),
-		((SELECT d.id FROM designers d WHERE d.id = 2), (SELECT p.price_for_m2 * p.square  FROM projects p WHERE p.id = 8), (SELECT id FROM status s WHERE s.name = 'FINISHED')),
-		((SELECT d.id FROM designers d WHERE d.id = 3), (SELECT p.price_for_m2 * p.square  FROM projects p WHERE p.id = 9), (SELECT id FROM status s WHERE s.name = 'VISUAL')),
-		((SELECT d.id FROM designers d WHERE d.id = 8), (SELECT p.price_for_m2 * p.square  FROM projects p WHERE p.id = 10), (SELECT id FROM status s WHERE s.name = 'VISUAL'));
+insert into project_infos (designer_id, project_id, totalPrice, status_id)
+values  ((SELECT d.id FROM designers d WHERE d.id = 24), (SELECT p.id FROM projects p WHERE p.id = 2), (SELECT p.priceM2 * p.square  FROM projects p WHERE p.id = 2), (SELECT id FROM status s WHERE s.name = 'FINISHED')),
+		((SELECT d.id FROM designers d WHERE d.id = 25), (SELECT p.id FROM projects p WHERE p.id = 3), (SELECT p.priceM2 * p.square  FROM projects p WHERE p.id = 3), (SELECT id FROM status s WHERE s.name = 'DRAWING')),
+		((SELECT d.id FROM designers d WHERE d.id = 26), (SELECT p.id FROM projects p WHERE p.id = 4), (SELECT p.priceM2 * p.square  FROM projects p WHERE p.id = 4), (SELECT id FROM status s WHERE s.name = 'VISUAL')),
+		((SELECT d.id FROM designers d WHERE d.id = 27), (SELECT p.id FROM projects p WHERE p.id = 5), (SELECT p.priceM2 * p.square  FROM projects p WHERE p.id = 5), (SELECT id FROM status s WHERE s.name = 'PLANNING')),
+		((SELECT d.id FROM designers d WHERE d.id = 28), (SELECT p.id FROM projects p WHERE p.id = 6), (SELECT p.priceM2 * p.square  FROM projects p WHERE p.id = 6), (SELECT id FROM status s WHERE s.name = 'DRAWING')),
+		((SELECT d.id FROM designers d WHERE d.id = 29), (SELECT p.id FROM projects p WHERE p.id = 7), (SELECT p.priceM2 * p.square  FROM projects p WHERE p.id = 7), (SELECT id FROM status s WHERE s.name = 'VISUAL')),
+		((SELECT d.id FROM designers d WHERE d.id = 30), (SELECT p.id FROM projects p WHERE p.id = 8), (SELECT p.priceM2 * p.square  FROM projects p WHERE p.id = 8), (SELECT id FROM status s WHERE s.name = 'PLANNING')),
+		((SELECT d.id FROM designers d WHERE d.id = 31), (SELECT p.id FROM projects p WHERE p.id = 9), (SELECT p.priceM2 * p.square  FROM projects p WHERE p.id = 9), (SELECT id FROM status s WHERE s.name = 'FINISHED')),
+		((SELECT d.id FROM designers d WHERE d.id = 32), (SELECT p.id FROM projects p WHERE p.id = 10), (SELECT p.priceM2 * p.square  FROM projects p WHERE p.id = 10), (SELECT id FROM status s WHERE s.name = 'VISUAL')),
+		((SELECT d.id FROM designers d WHERE d.id = 33), (SELECT p.id FROM projects p WHERE p.id = 11), (SELECT p.priceM2 * p.square  FROM projects p WHERE p.id = 11), (SELECT id FROM status s WHERE s.name = 'VISUAL'));
+

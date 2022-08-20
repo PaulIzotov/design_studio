@@ -25,20 +25,20 @@
         <input id="email-input" name="email" type="email" value="${requestScope.designer.email}"/>
         <br/>
         <input id="specialization-input-interior" name="specialization" type="radio"
-            value="INTERIOR" ${requestScope.specialization=='INTERIOR' ? 'checked' : ''}>
+            value="INTERIOR" ${requestScope.designer.specialization=='INTERIOR' ? 'checked' : ''}>
         <label for="specialization-input-interior">Interior</label>
         <input id="specialization-input-exterior" name="specialization" type="radio"
-            value="EXTERIOR" ${requestScope.specialization=='EXTERIOR' ? 'checked' : ''}>
+            value="EXTERIOR" ${requestScope.designer.specialization=='EXTERIOR' ? 'checked' : ''}>
         <label for="specialization-input-exterior">Exterior</label>
         <input id="specialization-input-architecture" name="specialization" type="radio"
-            value="ARCHITECT" ${requestScope.specialization=='ARCHITECT' ? 'checked' : ''}>
+            value="ARCHITECT" ${requestScope.designer.specialization=='ARCHITECT' ? 'checked' : ''}>
         <label for="specialization-input-architecture">Architecture</label>
         <br/>
         <input id="role-input-admin" name="role" type="radio"
-            value="ADMIN" ${requestScope.role=='ADMIN' ? 'checked' : ''}>
+            value="ADMIN" ${requestScope.designer.role=='ADMIN' ? 'checked' : ''}>
         <label for="role-input-admin">Admin</label>
         <input id="role-input-designer" name="role" type="radio"
-            value="DESIGNER" ${requestScope.role=='DESIGNER' ? 'checked' : ''}>
+            value="DESIGNER" ${requestScope.designer.role=='DESIGNER' ? 'checked' : ''}>
         <label for="role-input-designer">Designer</label>
         <br/>
         <input type="submit" value="SAVE"/>

@@ -1,23 +1,13 @@
-/*drop table if exists roles;
-drop table if exists specializations;
-drop table if exists status;
-drop table if exists designers;
-drop table if exists administrators;
-drop table if exists projects;
-drop table if exists project_infos;
-*/
-
-
 CREATE TABLE IF NOT EXISTS roles (
 	id bigserial PRIMARY KEY,
 	name varchar(10) UNIQUE NOT NULL
 	);
-
+	
 CREATE TABLE IF NOT EXISTS specializations (
 	id bigserial PRIMARY KEY,
 	name varchar(10) UNIQUE NOT NULL
 	);
-
+	
 CREATE TABLE IF NOT EXISTS status (
 	id bigserial PRIMARY KEY,
 	name varchar(10) UNIQUE NOT NULL
@@ -49,7 +39,7 @@ CREATE TABLE if not exists projects (
 	id BIGSERIAL PRIMARY KEY,
 	admin_id bigint NOT NULL,
 	designer_id bigint NOT NULL,
-	price_for_m2 DECIMAL(6, 2) NOT NULL,
+	priceM2 DECIMAL(6, 2) NOT NULL,
 	square DECIMAL(6, 2) NOT NULL,
 	deleted boolean NOT NULL DEFAULT false
 );
@@ -57,7 +47,8 @@ CREATE TABLE if not exists projects (
 CREATE TABLE if not exists project_infos (
 	id BIGSERIAL PRIMARY KEY,
 	designer_id bigint NOT NULL,
-	total_price DECIMAL(6, 2) NOT NULL,
+	project_id bigint NOT NULL,
+	totalPrice DECIMAL(6, 2) NOT NULL,
 	status_id bigint NOT NULL REFERENCES status,
 	deleted boolean NOT NULL DEFAULT false
 	);

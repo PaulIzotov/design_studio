@@ -22,8 +22,8 @@
                 <td>${counter.count}</td>
                 <td><a href="controller?command=project&id=${project.id}"><c:out value="${project.square}"/></a></td>
                 <td><c:out value="${project.priceM2}"/></td>
-                <td><c:out value="${project.admin}"/></td>
-                <td><c:out value="${project.designer}"/></td>
+                <td><a href="controller?command=administrator&id=${project.admin.id}"><c:out value="${project.admin}"/></a></td>
+                <td><a href="controller?command=designer&id=${project.designer.id}"><c:out value="${project.designer}"/></a></td>
             </tr>
         </c:forEach>
     </table>
