@@ -7,7 +7,7 @@
     <title>Edit designer</title>
 </head>
 <body>
-    <h1>Register new designer</h1>
+    <h1>Edit designer</h1>
     <jsp:include page="navbar.jsp"/>
     <form method="post" action="controller">
         <input name="command" type="hidden" value="edit_designer"/>

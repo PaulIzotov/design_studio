@@ -25,6 +25,13 @@
                 <td><a href="controller?command=administrator&id=${administrator.id}">
                 <c:out value="${administrator.lastName}"/></a></td>
                 <td>${administrator.email}</td>
+                <td>
+                    <form method="post" action="controller">
+                        <input type="hidden" name="command" value="edit_administrator_form">
+                        <input type="hidden" name="administratorId" value="${administrator.id}">
+                        <input type="submit" value="Edit">
+                    </form>
+                </td>
             </tr>
         </c:forEach>
     </table>
