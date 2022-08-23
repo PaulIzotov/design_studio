@@ -1,4 +1,4 @@
-package com.company.designstudio.command.impl;
+package com.company.designstudio.command.impl.login;
 
 import com.company.designstudio.command.Command;
 import jakarta.servlet.http.HttpServletRequest;
